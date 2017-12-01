@@ -1,3 +1,4 @@
+#From Mansur Ali Jisan <mjisan@g.coastal.edu>
 #!/bin/sh
 
 for i in WRFPRS_.???; do /home/mjisan/Downloads/UPPV2.0/bin/copygb.exe '-xg255 0 366 304   42557   -103257 136  11533  -57053    126    102 0' $i $i.copygb; done
