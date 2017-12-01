@@ -1,0 +1,1000 @@
+   13  cd coupled_model/test_cases/
+   14  ll
+   15  cd Fiona3_newgrid_ocean/
+   16  emacs config.h
+   17  cd ..
+   18  cd ../WRF_Run/GFS_DATA/Real_Time/new_data/
+   19  emacs gfsdata_download.sh
+   20  sbatch gfsdata_download.sh
+   21  ll
+   22  squeue 
+   23  sbatch gfsdata_download.sh
+   24  squeue 
+   25  ll
+   26  emacs slurm-10708.out
+   27  emacs gfsdata_download.sh
+   28  sbatch gfsdata_download.sh
+   29  ll
+   30  squeue 
+   31  ll
+   32  squeue 
+   33  ll
+   34  squeue 
+   35  ll
+   36  cd ..
+   37  cd coupled/coupled_model/test_cases/Fiona3_newgrid_ocean/
+   38  emacs config.h
+   39  cd ../../../
+   40  ll
+   41  cd gfs_data/
+   42  ls
+   43  mv 2016082700/ 2016082706
+   44  cd 2016082706/
+   45  ls
+   46  rm -r *
+   47  ln -sf ../../../WRF_Run/GFS_DATA/Real_Time/new_data/gfs.t06z.pgrb2.0p50.f* .
+   48  ls
+   49  cd ..
+   50  cd coupled_model/test_cases/Fiona3_newgrid_ocean/
+   51  emacs config.h
+   52  cd ../../
+   53  cd test_cases/Fiona3_newgrid_ocean/
+   54  emacs config.h.
+   55  emacs config.h
+   56  cd ../../
+   57  ./wrf_preprocess.sh 
+   58  cd test_cases/Fiona3_newgrid_ocean/
+   59  emacs config.h
+   60  cd ../../
+   61  ./wrf_preprocess.sh 
+   62  cd test_cases/Fiona3_newgrid_ocean/
+   63  emacs config.h
+   64  cd ../../
+   65  ./wrf_preprocess.sh 
+   66  cd test_cases/Fiona3_newgrid_ocean/
+   67  ls
+   68  emacs config.h
+   69  cd ..
+   70  cd INVEST99L_2618Z/
+   71  ls
+   72  rm gfs.t*
+   73  rm wrfrst_d01_2016-0*
+   74  cd ..
+   75  cd coupled_model/
+   76  ./wrf_preprocess.sh 
+   77  ./ocean_preprocess_local.sh 
+   78  ssh -Y frisco 
+   79  squeue 
+   80  cd /mnt/data/sci3/mjisan/coupled/
+   81  ll
+   82  cd INVEST99L/postprd/
+   83  emacs his_08_26 
+   84  cd ..
+   85  cd WRF_Run/GFS_DATA/Real_Time/new_data/
+   86  emacs gfsdata_download.sh
+   87  sbatch gfsdata_download.sh
+   88  squeue 
+   89  cd /home/mjisan/WRF/WRFV3/Build_WRF/GFDL_Vortex_Tracker/gfdl-vortextracker/trk_plot/plottrak/
+   90  wget https://www.ral.ucar.edu/hurricanes/realtime/plots/northatlantic/2016/al992016/aal992016.dat
+   91  emacs aal992016.dat.1
+   92  emacs aal992016.dat
+   93  emacs INVEST99L
+   94  emacs aal992016.dat
+   95  emacs INVEST99L
+   96  emacs aal992016.dat
+   97  emacs INVEST99L
+   98  emacs INVEST99L aal992016.dat
+   99  cp -a /mnt/data/sci3/mjisan/coupled/INVEST99L_2700Z/postprd/fort.69
+  100  cp -a /mnt/data/sci3/mjisan/coupled/INVEST99L_2700Z/postprd/fort.69 .
+  101  cat fort.69 >> aal992016.dat.1
+  102  emacs aal992016.dat.1
+  103  mv aal992016.dat INVEST99L_adeck
+  104  mv aal992016.dat.1 aal992016.dat
+  105  atcfplot.sh 2016 al
+  106  ll
+  107  cd
+  108  ll
+  109  squeue 
+  110  cd /mnt/data/sci3/mjisan/coupled/coupled_model/test_cases/
+  111  ll
+  112  cd Fiona3_newgrid_ocean
+  113  emacs config.h
+  114  cd ..
+  115  cd gfs_data/
+  116  mv 2016082706 2016082712
+  117  cd 2016082712/
+  118  ls
+  119  rm -r gfs.t06z.pgrb2.0p50.f*
+  120  ln -sf ../../../WRF_Run/GFS_DATA/Real_Time/new_data/gfs.t12z.pgrb2.0p50.f* .
+  121  ls
+  122  cd ..
+  123  cd coupled_model/
+  124  ./wrf_preprocess.sh 
+  125  ./ocean_preprocess_local.sh 
+  126  ssh -Y frisco 
+  127  squeue 
+  128  cd /mnt/data/sci3/mjisan/coupled/
+  129  cd coupled_model/
+  130  ./finalize_namelists.sh 
+  131  cd ..
+  132  ll
+  133  cd INVEST99L_2618Z
+  134  ll
+  135  sbatch submit_coupled_simulation
+  136  squeue 
+  137  ll
+  138  ls
+  139  cd ..
+  140  ll
+  141  cd INVEST99L_2700Z/postprd/
+  142  more copygb_hwrf.txt.204 
+  143  more copygb_hwrf.txt.177 
+  144  more copygb_hwrf.txt.189 
+  145  more copygb_hwrf.txt.192 
+  146  for i in WRFPRS_.??; do /home/mjisan/Downloads/UPPV2.0/bin/copygb.exe '-xg255 0 319 235   36391   -103257 136  11533  -65024    120    106 0' $i $i.copygb; done
+  147  for i in WRFPRS_.???; do /home/mjisan/Downloads/UPPV2.0/bin/copygb.exe '-xg255 0 319 235   36391   -103257 136  11533  -65024    120    106 0' $i $i.copygb; done
+  148  llll
+  149  ll
+  150  for i in WRFPRS_.??.copygb; do mv $i arw.uncoupled.SIDR09L.2007111300.f0$(echo ${i:8:2}*60|bc); done
+  151  for i in WRFPRS_.???.copygb; do echo mv $i arw.uncoupled.SIDR09L.2007111300.f0$(echo ${i:8:2}*60|bc); done
+  152  for i in WRFPRS_.???.copygb; do echo mv $i arw.uncoupled.SIDR09L.2007111300.f0$(echo ${i:8:3}*60|bc); done
+  153  for i in WRFPRS_.???.copygb; do mv $i arw.uncoupled.SIDR09L.2007111300.f0$(echo ${i:8:3}*60|bc); done
+  154  ls
+  155  mv arw.uncoupled.SIDR09L.2007111300.f00 arw.uncoupled.SIDR09L.2007111300.f00000
+  156  mv arw.uncoupled.SIDR09L.2007111300.f0180 arw.uncoupled.SIDR09L.2007111300.f00180
+  157  mv arw.uncoupled.SIDR09L.2007111300.f0360 arw.uncoupled.SIDR09L.2007111300.f00360
+  158  mv arw.uncoupled.SIDR09L.2007111300.f0540 arw.uncoupled.SIDR09L.2007111300.f00540
+  159  mv arw.uncoupled.SIDR09L.2007111300.f0720 arw.uncoupled.SIDR09L.2007111300.f00720
+  160  mv arw.uncoupled.SIDR09L.2007111300.f0900 arw.uncoupled.SIDR09L.2007111300.f00900
+  161  ls
+  162  cp -a ../../INVEST99L_2618Z/postprd/fort.12 .
+  163  cp -a ../../INVEST99L_2618Z/postprd/fort.15 .
+  164  cp -a ../../INVEST99L_2618Z/postprd/namelist.multi .
+  165  cp -a ../../INVEST99L_2618Z/postprd/tracker.exe .
+  166  cp -a ../../INVEST99L_2618Z/postprd/grbindex.exe .
+  167  ls
+  168  for i in arw.uncoupled.SIDR09L.2007111300.f0????; do grbindex.exe $i $i.ix; done
+  169  ls
+  170  emacs fort.15 
+  171  pwd
+  172  emacs fort.12 
+  173  ./tracker.exe < namelist.multi 
+  174  rm fort.14
+  175  touch fort.14
+  176  ./tracker.exe < namelist.multi 
+  177  emacs fort.69 
+  178  PWD
+  179  pwd
+  180  emacs fort.12
+  181  rm fort.69
+  182  ./tracker.exe < namelist.multi 
+  183  emacs fort.69~ 
+  184  ll
+  185  emacs fort.69~ 
+  186  rm fort.68
+  187  rm fort.69~ 
+  188  rm fort.14 
+  189  touch fort.14
+  190  rm fort.51 
+  191  ./tracker.exe < namelist.multi 
+  192  ll
+  193  cd .
+  194  cd ..
+  195  ncview wrfout_d01_2016-08-27_00\:00\:00 
+  196  cd ..
+  197  cd
+  198  ll
+  199  cd 99L
+  200  ll
+  201  display projection.jpg 
+  202  cd /mnt/data/sci3/mjisan/WRF_Run/domain_wizard/
+  203  run_DomainWizard 
+  204  ssh -Y frisco 
+  205  cd /home/mjisan/Downloads/UPPV2.0/scripts/
+  206  emacs run_unipost
+  207  emacs ../parm/wrf_cntrl.parm 
+  208  ./run_unipost
+  209  ssh -Y frisco 
+  210   squeue 
+  211  cd /mnt/data/sci3/mjisan/coupled/
+  212  cd hycom_data/
+  213  ll
+  214  rm HYCOM_2016082706_Fiona3_newgrid_ocean.nc
+  215  cd ..
+  216  ll
+  217  cd INVEST99L_2618Z
+  218  squeue 
+  219  ll
+  220  ncview wrfout_d01_2016-08-27_06\:00\:00 
+  221  emacs namelist.input
+  222  cd ..
+  223  ll
+  224  cd INVEST99L_2712Z
+  225  ll
+  226  emacs namelist.input 
+  227  tail rsl.error.0000 
+  228  rm hycom_input.nc regional.grid.b regional.grid.a my_MT.nc
+  229  ls
+  230  ll
+  231  cd ..
+  232  cd hycom_data/
+  233  ll
+  234  cd ../coupled_model/
+  235  ./ocean_preprocess_local.sh 
+  236  cd ..
+  237  cll
+  238  ll
+  239  cd INVEST99L_2712Z
+  240  ll
+  241  cd ..
+  242  cd coupled_model/
+  243  ./create_ocean_domain_grid.sh 
+  244  ./add_bathymetry.sh 
+  245  ./ocean_preprocess_local.sh 
+  246  ./finalize_namelists.sh 
+  247  cd ..
+  248  ll
+  249  cd INVEST99L_2712Z
+  250  ll
+  251  emacs namelist.input
+  252  emacs submit_coupled_simulation
+  253  sbatch submit_coupled_simulation
+  254  squeue 
+  255  ls
+  256  squeue 
+  257  ls
+  258  ll
+  259  emacs namelist.wps 
+  260  ll
+  261  emacs rsl.error.0000 
+  262  ncview ocean_his.nc 
+  263  cd ..
+  264  ll
+  265  cd INVEST99L_2618Z
+  266  emacs namelist.input
+  267  ncview wrfout_d01_2016-08-27_06\:00\:00 
+  268  cd postprd/
+  269  ll
+  270  emacs fort.69
+  271  cd ..
+  272  ssh -Y frisco 
+  273  squeue 
+  274  cd /mnt/data/sci3/mjisan/
+  275  cd coupled/
+  276  ll
+  277  cd INVEST99L_2618Z
+  278  ll
+  279  cd postprd/
+  280  ls
+  281  cd ..
+  282  ll
+  283  cd ..
+  284  ll
+  285  cd INVEST99L_2712Z
+  286  ll
+  287  ncview wrfout_d01_2016-08-27_12\:00\:00 
+  288  cd ..
+  289  ll
+  290  cd INVEST99L_2618Z
+  291  cd postprd/
+  292  ll
+  293  more copygb_hwrf.txt.198 
+  294  more copygb_hwrf.txt.192 
+  295  more copygb_hwrf.txt.177 
+  296  more copygb_hwrf.txt.186 
+  297  more copygb_hwrf.txt.180 
+  298  more copygb_hwrf.txt.183 
+  299  more copygb_hwrf.txt.180
+  300  cd /home/mjisan/WRF/WRFV3/Build_WRF/GFDL_Vortex_Tracker/gfdl-vortextracker/trk_plot/plottrak/
+  301  wget https://www.ral.ucar.edu/hurricanes/realtime/plots/northatlantic/2016/al992016/aal992016.dat
+  302  emacs aal992016.dat
+  303  mv aal992016.dat aal992016.dat.2
+  304  mv aal992016.dat.1 aal992016.dat
+  305  cp -a /mnt/data/sci3/mjisan/coupled/INVEST99L_2618Z/postprd/fort.69 .
+  306  cat fort.69 >> aal992016.dat
+  307  emacs aal992016.dat
+  308  atcfplot.sh 2016 al
+  309  squeue 
+  310  cd /mnt/data/sci3/mjisan/coupled/coupled_model/ROMS_SWAN/Tools/ncl_scripts/ncl_realtime/
+  311  ll
+  312  rm ocean_his.nc 
+  313  cd ..
+  314  ln -sf /mnt/data/sci3/mjisan/coupled/INVEST99L_2618Z/ocean_his.nc .
+  315  ncdump -h ocean_his.nc | less
+  316  emacs plot_nest_domains.ncl 
+  317  ncl plot_nest_domains.ncl 
+  318  emacs plot_nest_domains.ncl 
+  319  ncl plot_nest_domains.ncl 
+  320  emacs plot_nest_domains.ncl 
+  321  ncl plot_nest_domains.ncl 
+  322  cd ..
+  323  cd test_cases/
+  324  ll
+  325  mkdir 91L
+  326  cd 91L/
+  327  cp -a ../Fiona3_newgrid_ocean/* .
+  328  emacs config.h
+  329  rm seagrid.mat 
+  330  cd ..
+  331  emacs global.inc 
+  332  cd ..
+  333  cd gfs_data/
+  334  mv 2016082712 2016082718
+  335  cd 2016082718/
+  336  ls
+  337  rm gfs.t12z.pgrb2.0p50.f*
+  338  ln -sf ../../../WRF_Run/GFS_DATA/Real_Time/new_data/gfs.t18z.pgrb2.0p50.f* .
+  339  ls
+  340  cd ..
+  341  cd coupled_model/
+  342  ./wrf_preprocess.sh 
+  343  ./create_ocean_domain_grid.sh 
+  344  ./add_bathymetry.sh 
+  345  ./ocean_preprocess_local.sh 
+  346  ./finalize_namelists.sh 
+  347  cd ..
+  348  ll
+  349  cd INVEST99L_2718Z
+  350  ll
+  351  sbatch submit_coupled_simulation
+  352  squeue 
+  353  ll
+  354  squeue 
+  355  ll
+  356  ncview wrfout_d01_2016-08-27_18\:00\:00 
+  357  ssh -Y frisco 
+  358  cd /mnt/data/sci3/mjisan/coupled/
+  359  ll
+  360  cd INVEST99L_2618Z
+  361  cd postprd/
+  362  for i in WRFPRS_.???; do /home/mjisan/Downloads/UPPV2.0/bin/copygb.exe '-xg255 0 319 235   36391   -103257 136  11533  -65024    120    106 0' $i $i.copygb; done
+  363  for i in WRFPRS_.??; do /home/mjisan/Downloads/UPPV2.0/bin/copygb.exe '-xg255 0 319 235   36391   -103257 136  11533  -65024    120    106 0' $i $i.copygb; done
+  364  ll
+  365  for i in WRFPRS_.???.copygb; do mv $i arw.uncoupled.SIDR09L.2007111300.f0$(echo ${i:8:3}*60|bc); done
+  366  for i in WRFPRS_.??.copygb; do mv $i arw.uncoupled.SIDR09L.2007111300.f0$(echo ${i:8:2}*60|bc); done
+  367  ll
+  368  mv arw.uncoupled.SIDR09L.2007111300.f0900 arw.uncoupled.SIDR09L.2007111300.f00900
+  369  mv arw.uncoupled.SIDR09L.2007111300.f0720 arw.uncoupled.SIDR09L.2007111300.f00720
+  370  mv arw.uncoupled.SIDR09L.2007111300.f0540 arw.uncoupled.SIDR09L.2007111300.f00540
+  371  mv arw.uncoupled.SIDR09L.2007111300.f0360 arw.uncoupled.SIDR09L.2007111300.f00360
+  372  mv arw.uncoupled.SIDR09L.2007111300.f0180 arw.uncoupled.SIDR09L.2007111300.f00180
+  373  mv arw.uncoupled.SIDR09L.2007111300.f00 arw.uncoupled.SIDR09L.2007111300.f00000
+  374  ll
+  375  ls
+  376  rm -r *.ix
+  377  ls
+  378  ll
+  379  for i in arw.uncoupled.SIDR09L.2007111300.f0????; do grbindex.exe $i $i.ix; done
+  380  ls
+  381  cd ..
+  382  ll
+  383  emacs namelist.input
+  384  cd postprd/
+  385  emacs fort.12
+  386  cp -a ../../INVEST99L_2618Z/postprd/fort.15 .
+  387  rm fort.14
+  388  touch fort.14
+  389  cp -a ../../INVEST99L_2700Z/postprd/fort.12 .
+  390  cp -a ../../INVEST99L_2700Z/postprd/fort.15 .
+  391  cp -a ../../INVEST99L_2700Z/postprd/fort.14 .
+  392  cp -a ../../INVEST99L_2700Z/postprd/namelist.multi .
+  393  cp -a ../../INVEST99L_2700Z/postprd/tracker.exe .
+  394  pwd
+  395  emacs fort.12
+  396  emacs fort.15 
+  397  ./tracker.exe < namelist.multi 
+  398  pwd
+  399  emacs fort.69 
+  400  pwd
+  401  cd ..
+  402  squeue 
+  403  cd ..
+  404  cd WRF_Run/GFS_DATA/Real_Time/new_data/
+  405  emacs gfsdata_download.sh
+  406  sbatch gfs
+  407  sbatch gfsdata_download.sh
+  408  cd ../../../
+  409  cd ../coupled/
+  410  ls
+  411  ll
+  412  cd INVEST99L_2712Z
+  413  ll
+  414  ncview wrfout_d01_2016-08-27_12\:00\:00 
+  415  cd ..
+  416  cd coupled/coupled_model/test_cases/
+  417  ll
+  418  cd Fiona3_newgrid_ocean
+  419  ll
+  420  emacs config.h
+  421  squeue 
+  422  cd ..
+  423  cd WRF_Run/GFS_DATA/Real_Time/new_data/
+  424  ll
+  425  cd ../../../
+  426  cd ../
+  427  cd coupled/
+  428  ll
+  429  cd INVEST99L_2618Z
+  430  emacs namelist.input
+  431  squeue 
+  432  ncview ocean_his.nc 
+  433  pwd
+  434  ll
+  435  squeue 
+  436  cd ..
+  437  cd coupled_model/ROMS_SWAN/
+  438  ls
+  439  cd Tools/
+  440  ll
+  441  cd seagrid
+  442  /usr/global/matlab/r2013b/bin/matlab 
+  443  cd /mnt/data/sci3/mjisan/coupled/coupled_model/ROMS_SWAN/Tools/ncl_scripts/ncl_realtime/
+  444  ll
+  445  emacs sst_roms.ncl
+  446  ll
+  447  emacs wave_roms.ncl
+  448  cd ..
+  449  ll
+  450  cd ncl_realtime/
+  451  ln -sf /mnt/data/sci3/mjisan/coupled/INVEST99L_2618Z/ocean_his.nc .
+  452  emacs wave_roms.ncl
+  453  emacs ../plot_nest_domains.ncl 
+  454  emacs wave_roms.ncl
+  455  ncl wave_roms.ncl
+  456  emacs wave_roms.ncl
+  457  ncdump -h ocean_his.nc | less
+  458  emacs wave_roms.ncl
+  459  ncl wave_roms.ncl
+  460  emacs wave_roms.ncl
+  461  ncl wave_roms.ncl
+  462  emacs sst_roms.ncl
+  463  ncl sst_roms.ncl
+  464  emacs sst_roms.ncl
+  465  ncl sst_roms.ncl
+  466  emacs sst_roms.ncl
+  467  ncl sst_roms.ncl
+  468  emacs sst_roms.ncl
+  469  ncl sst_roms.ncl
+  470  emacs sst_roms.ncl
+  471  ncl sst_roms.ncl
+  472  emacs sst_roms.ncl
+  473  ncl sst_roms.ncl
+  474  ssh -Y frisco 
+  475  cd /mnt/data/sci3/mjisan/coupled/
+  476  ll
+  477  cd INVEST99L_2712Z
+  478  emacs rsl.error.0000 
+  479  squeue 
+  480  ssh -Y frisco 
+  481  cd /home/mjisan/Downloads/UPPV2.0/scripts/
+  482  emacs run_unipost
+  483  emacs ../parm/wrf_cntrl.parm 
+  484  ./run_unipost
+  485  emacs run_unipost
+  486  cd /mnt/data/sci3/mjisan/coupled/INVEST99L_2712Z/postprd/
+  487  ll
+  488  cd ..
+  489  ll
+  490  emacs namelist.input
+  491  cd postprd/
+  492  kls
+  493  ll
+  494  more copygb_hwrf.txt.183 
+  495  more copygb_hwrf.txt.177 
+  496  more copygb_hwrf.txt.168 
+  497  more copygb_hwrf.txt.150 
+  498  more copygb_hwrf.txt.147 
+  499  more copygb_hwrf.txt.144 
+  500  more copygb_hwrf.txt.141
+  501  more copygb_hwrf.txt.138 
+  502  more copygb_hwrf.txt.117 
+  503  more copygb_hwrf.txt.102 
+  504  more copygb_hwrf.txt.108 
+  505  more copygb_hwrf.txt.105 
+  506  more copygb_hwrf.txt.102 
+  507  for i in WRFPRS_.??; do /home/mjisan/Downloads/UPPV2.0/bin/copygb.exe '-xg255 0 366 304   42557   -103257 136  11533  -57053    126    102 0' $i $i.copygb; done
+  508  for i in WRFPRS_.???; do /home/mjisan/Downloads/UPPV2.0/bin/copygb.exe '-xg255 0 366 304   42557   -103257 136  11533  -57053    126    102 0' $i $i.copygb; done 
+  509  ll
+  510  for i in WRFPRS_.??.copygb; do mv $i arw.uncoupled.SIDR09L.2007111300.f0$(echo ${i:8:2}*60|bc); done
+  511  for i in WRFPRS_.???.copygb; do mv $i arw.uncoupled.SIDR09L.2007111300.f0$(echo ${i:8:3}*60|bc); done
+  512  ls
+  513  cp -a ../../INVEST99L_2700Z/postprd/tracker.exe .
+  514  cp -a ../../INVEST99L_2700Z/postprd/fort.12 .
+  515  cp -a ../../INVEST99L_2700Z/postprd/fort.14 .
+  516  cp -a ../../INVEST99L_2700Z/postprd/fort.15 .
+  517  cp -a ../../INVEST99L_2700Z/postprd/namelist.multi .
+  518  cp -a ../../INVEST99L_2700Z/postprd/tracker.exe .
+  519  cp -a ../../INVEST99L_2700Z/postprd/grbindex.exe .
+  520  ls
+  521  for i in arw.uncoupled.SIDR09L.2007111300.f0????; do grbindex.exe $i $i.ix; done
+  522  ls
+  523  emacs fort.15 
+  524  rm fort.14 
+  525  touch fort.14
+  526  emacs ../namelist.input
+  527  emacs fort.12
+  528  ./tracker.exe < namelist.multi 
+  529  ls
+  530  ll
+  531  mv arw.uncoupled.SIDR09L.2007111300.f00 arw.uncoupled.SIDR09L.2007111300.f00000
+  532  mv arw.uncoupled.SIDR09L.2007111300.f0180 arw.uncoupled.SIDR09L.2007111300.f00180
+  533  mv arw.uncoupled.SIDR09L.2007111300.f0360 arw.uncoupled.SIDR09L.2007111300.f00360
+  534  mv arw.uncoupled.SIDR09L.2007111300.f0540 arw.uncoupled.SIDR09L.2007111300.f00540
+  535  mv arw.uncoupled.SIDR09L.2007111300.f0720 arw.uncoupled.SIDR09L.2007111300.f00720
+  536  mv arw.uncoupled.SIDR09L.2007111300.f0900 arw.uncoupled.SIDR09L.2007111300.f00900
+  537  rm *.ix
+  538  for i in arw.uncoupled.SIDR09L.2007111300.f0????; do grbindex.exe $i $i.ix; done
+  539  ll
+  540  ./tracker.exe < namelist.multi 
+  541  emacs fort.69 
+  542  pwd
+  543  emacs fort.14 
+  544  emacs fort.12
+  545  ./tracker.exe < namelist.multi 
+  546  emacs fort.69
+  547  pwd
+  548  emacs fort.69
+  549  ssh -Y frisco 
+  550  cd /home/mjisan/WRF/WRFV3/Build_WRF/GFDL_Vortex_Tracker/gfdl-vortextracker/trk_plot/plottrak/
+  551  wget https://www.ral.ucar.edu/hurricanes/realtime/plots/northatlantic/2016/al992016/aal992016.dat
+  552  mv aal992016.dat aal992016.dat.5
+  553  mv aal992016.dat.1 aal992016.dat
+  554  cp /mnt/data/sci3/mjisan/coupled/INVEST99L_2712Z/postprd/fort.69 .
+  555  cat fort.69 >> aal992016.dat
+  556  atcfplot.sh 2016 al
+  557  wget https://www.ral.ucar.edu/hurricanes/realtime/plots/northatlantic/2016/al082016/aal082016.dat
+  558  emacs aal082016.dat
+  559  cp -a /mnt/data/sci3/mjisan/coupled/INVEST99L_2712Z/postprd/fort.69 .
+  560  cat fort.69 >> aal082016.dat 
+  561  atcfplot.sh 2016 al
+  562  emacs aal082016.dat
+  563  atcfplot.sh 2016 al
+  564  ll
+  565  ssh -Y frisco 
+  566  cd /mnt/data/sci3/mjisan/WRF_Run/GFS_DATA/Real_Time/new_data/
+  567  emacs gfsdata_download.sh
+  568  sbatch gfsdata_download.sh
+  569  squeue 
+  570  ll
+  571  cd ..
+  572  cd c 
+  573  cd coupled/
+  574  ll
+  575  cd INVEST99L_2718Z
+  576  squeue 
+  577  ll
+  578  cd ..
+  579  ll
+  580  cd INVEST99L_2712Z
+  581  ll
+  582  emacs namelist.input
+  583  pwd
+  584  cd ..
+  585  cd coupled_model/test_cases/
+  586  ll
+  587  emacs ../global.inc 
+  588  cd Fiona3_newgrid_ocean/
+  589  emacs config.h
+  590  cd ..
+  591  ls
+  592  cd ../../../WRF_Run/GFS_DATA/Real_Time/new_data/
+  593  ll
+  594  emacs gfsdata_download.sh
+  595  sbatch gfsdata_download.sh
+  596  squeue 
+  597  ll
+  598  cd -
+  599  cd Fiona3_newgrid_ocean/
+  600  emacs config.h
+  601  cd ..
+  602  cd gfs_data/
+  603  mv 2016082718/ 2016082706
+  604  cd 2016082706/
+  605  ls
+  606  cd ..
+  607  mv 2016082706/ 2016082806
+  608  cd 2016082806/
+  609  ls
+  610  cd ..
+  611  cd coupled_model/
+  612  ls
+  613  cd test_cases/
+  614  ll
+  615  cd Fiona3_newgrid_ocean
+  616  ls
+  617  cd ..
+  618  cd WRF_Run/GFS_DATA/SC_GFS/
+  619  emacs gd
+  620  emacs namdata_download.sh
+  621  sbatch namdata_download.sh
+  622  ll
+  623  cd ..
+  624  cd SC_Daily_Weather/
+  625  cd WRFV3/test/em_real/
+  626  emacs run_wrf.sh
+  627  cd ..
+  628  cd ../../../
+  629  cd mjisan/coupled/coupled_model/test_cases/Fiona3_newgrid_ocean/
+  630  emacs namelist.input
+  631  cd ../../../
+  632  cd ..
+  633  cd WRF_Run/GFS_DATA/Real_Time/new_data/
+  634  ll
+  635  emacs gfs
+  636  emacs gfsdata_download.sh
+  637  cd ../../../
+  638  cd ../coupled/
+  639  cd gfs_data/
+  640  cd 2016082806/
+  641  ls
+  642  ln -sf ../../../WRF_Run/GFS_DATA/Real_Time/new_data/gfs.t06z.pgrb2.0p50.f* .
+  643  ls
+  644  cd ..
+  645  cd coupled_model/test_cases/Fiona3_newgrid_ocean/
+  646  emacs config.h
+  647  cd ..
+  648  ls
+  649  cd ..
+  650  ll
+  651  cd INVEST99L_2618Z
+  652  ncview wrfout_d01_2016-08-26_18\:00\:00 
+  653  cd ..
+  654  ls
+  655  ll
+  656  cd INVEST99L_2712Z
+  657  ls
+  658  ncview wrfout_d01_2016-08-27_12\:00\:00 
+  659  squeue 
+  660  cd ..
+  661  cd coupled_model/test_cases/
+  662  ls
+  663  ll
+  664  cd ..
+  665  emacs global.inc 
+  666  ./wrf_preprocess.sh 
+  667  ./create_ocean_domain_grid.sh 
+  668  ./add_bathymetry.sh 
+  669  ./ocean_preprocess_local.sh 
+  670  ./finalize_namelists.sh 
+  671  cd ..
+  672  ll
+  673  cd INVEST99L_2812Z/
+  674  emacs submit_coupled_simulation
+  675  sbatch submit_coupled_simulation
+  676  squeue 
+  677  ll
+  678  squeue 
+  679  ll
+  680  ncview wrfout_d01_2016-08-28_06\:00\:00 
+  681  emacs rsl.out.0000 
+  682  emacs rsl.error.0000 
+  683  squeue 
+  684  ll
+  685  cd ..
+  686  ll
+  687  cd ../WRF_Run/GFS_DATA/Real_Time/new_data/
+  688  emacs gfsdata_download.sh
+  689  sbatch gfsdata_download.sh
+  690  squeue 
+  691  ll
+  692  cd ..
+  693  cd new_data/
+  694  ll
+  695  cd ..
+  696  cd ../../coupled/coupled_model/test_cases/Fiona3_newgrid_ocean/
+  697  emacs config.h
+  698  cd
+  699  ll
+  700  cd 99L
+  701  display projection.jpg 
+  702  cd /mnt/data/sci3/mjisan/coupled/
+  703  squeue 
+  704  ls
+  705  ll
+  706  cd INVEST99L_2812Z
+  707  ll
+  708  emacs rsl.out.0000 
+  709  squeue 
+  710  emacs submit_coupled_simulation
+  711  emacs rsl.error.0000 
+  712  emacs wrf.out 
+  713  cd ..
+  714  cd coupled/gfs_data/
+  715  mv 2016082806/ 2016082812
+  716  cd 2016082812/
+  717  rm *
+  718  ls
+  719  ln -sf ../../../WRF_Run/GFS_DATA/Real_Time/new_data/gfs.t12z.pgrb2.0p50.f* .
+  720  ls
+  721  cd ..
+  722  cd coupled_model/test_cases/
+  723  ls
+  724  cd Fiona3_newgrid_ocean/
+  725  emacs config.h
+  726  cd ..
+  727  cd ../gfs_data/
+  728  cd 2016082812/
+  729  ln -sf ../../../WRF_Run/GFS_DATA/Real_Time/new_data/gfs.t12z.pgrb2.0p50.f* .
+  730  ls
+  731  cd ..
+  732  cd coupled_model/
+  733  ./wrf_preprocess.sh 
+  734  ./create_ocean_domain_grid.sh 
+  735  ./add_bathymetry.sh 
+  736  ./ocean_preprocess_local.sh 
+  737  ./finalize_namelists.sh 
+  738  cd ..
+  739  ll
+  740  cd INVEST99L_2818Z
+  741  sbatch submit_coupled_simulation
+  742  ssh -Y frisco 
+  743  squeue 
+  744  cd /mnt/data/sci3/mjisan/coupled/
+  745  ll
+  746  cd INVEST99L_2818Z
+  747  ll
+  748  ncview wrfout_d01_2016-08-28_12\:00\:00 
+  749  squeue 
+  750  cd ..
+  751  ll
+  752  cd INVEST99L_2812Z.
+  753  cd INVEST99L_2812Z
+  754  ncview wrfout_d01_2016-08-28_06\:00\:00 
+  755  ll
+  756  ssh -Y frisco 
+  757  ssh -Y frisco 
+  758  cd /home/mjisan/Downloads/UPPV2.0/scripts/
+  759  emacs run_unipost
+  760  ./run_unipost
+  761  cd /home/mjisan/WRF/WRFV3/Build_WRF/GFDL_Vortex_Tracker/gfdl-vortextracker/trk_plot/plottrak/
+  762  wget https://www.ral.ucar.edu/hurricanes/realtime/plots/northatlantic/2016/al082016/aal082016.dat
+  763  emacs aal082016.dat.1
+  764  wget https://www.ral.ucar.edu/hurricanes/realtime/plots/northatlantic/2016/al092016/aal092016.dat
+  765  emacs aal092016.dat
+  766  cp -a /mnt/data/sci3/mjisan/coupled/INVEST99L_2818Z/postprd/fort.69 .
+  767  cat fort.69 >> aal092016.dat
+  768  emacs aal092016.dat
+  769  emacs aal082016.dat.1
+  770  mv aal082016.dat.1 aal082016.dat
+  771  emacs aal082016.dat.1
+  772  emacs aal082016.dat
+  773  cp /mnt/data/sci3/mjisan/coupled/INVEST99L_2818Z/postprd/fort.69 .
+  774  cat fort.69 >> aal082016.dat
+  775  atcfplot.sh 2016 al
+  776  ssh -Y frisco 
+  777  cd /mnt/data/sci3/mjisan/coupled/
+  778  ll
+  779  cd INVEST99L_2812Z
+  780  emacs namelist.input
+  781  cd ..
+  782  ll
+  783  cd INVEST99L_2818Z
+  784  emacs namelist.input
+  785  cd ..
+  786  cd WRF_Run/GFS_DATA/Real_Time/new_data/
+  787  ll
+  788  emacs gfsdata_download.sh
+  789  sbatch gfsdata_download.sh
+  790  ll
+  791  cd ..
+  792  ls
+  793  ll
+  794  squeue 
+  795  cd coupled/coupled_model/test_cases/
+  796  ll
+  797  cd Fiona3_newgrid_ocean/
+  798  emacs config.h
+  799  cd ../Gaston/
+  800  emacs con 
+  801  emacs config.h
+  802  cd ..
+  803  cd WRF_Run/GFS_DATA/Real_Time/new_data/
+  804  ll
+  805  cd ..
+  806  cd SC_Daily_Weather/
+  807  ./main.sh
+  808  cd ..
+  809  cd SC_Daily_Weather/Full_Domain/
+  810  ./main.sh
+  811  emacs WRFV3/test/em_real/namelist.input
+  812  cd WRFV3/test/em_real/
+  813  ./r
+  814  ./real.exe \
+  815  ./real.exe 
+  816  sbatch run_wrf.sh
+  817  squeue 
+  818  emacs run_wrf.sh
+  819  sbatch run_wrf.sh
+  820  squeue 
+  821  cd /home/mjisan/WRF/WRFV3/Build_WRF/GFDL_Vortex_Tracker/gfdl-vortextracker/trk_plot/plottrak/
+  822  cd /home/mjisan/Downloads/UPPV2.0/
+  823  cd sc 
+  824  cd scripts/
+  825  emacs run_unipost
+  826  emacs ../parm/wrf_cntrl.parm 
+  827  cd ../parm/
+  828  rm wrf_cntrl.parm 
+  829  cp -a ../../UPPV2.2/parm/wrf_cntrl.parm .
+  830  cd ..
+  831  cd scripts/
+  832  ./run_unipost
+  833  emacs run_unipost
+  834  ./run_unipost
+  835  emacs run_unipost
+  836  ./run_unipost
+  837  emacs run_unipost
+  838  ./run_unipost
+  839  ssh -Y frisco 
+  840  cd /mnt/data/sci3/mjisan/coupled/
+  841  ll
+  842  cd coupled_model/
+  843  ls
+  844  ll
+  845  cd ..
+  846  cd gfs_data/
+  847  mv 2016082812/ 2016082818
+  848  cd 2016082818/
+  849  ls
+  850  ll
+  851  ln -sf ../../../WRF_Run/GFS_DATA/Real_Time/new_data/gfs.t18z.pgrb2.0p50.f* .
+  852  ls
+  853  ln -sf ../../../WRF_Run/GFS_DATA/Real_Time/new_data/gfs.t18z.pgrb2.0p50.f* .
+  854  ls
+  855  ln -sf ../../../WRF_Run/GFS_DATA/Real_Time/new_data/gfs.t18z.pgrb2.0p50.f* .
+  856  ll
+  857  cd ..
+  858  cd coupled_model/
+  859  ./wrf_preprocess.sh 
+  860  squeue 
+  861  cd .,
+  862  cd ..
+  863  ll
+  864  cd INVEST99L_2818Z_1
+  865  tail rsl.error.0000 
+  866  emacs rsl.error.0000 
+  867  cd ..
+  868  cd c 
+  869  emacs g
+  870  emacs gl
+  871  cd coupled_model/
+  872  emacs global.inc 
+  873  emacs test_cases/Fiona3_newgrid_ocean/config.h
+  874  cd ..
+  875  cd gfs_data/
+  876  cd 2016082818/
+  877  ls
+  878  rm -r gfs.t1*
+  879  ls
+  880  ln -sf ../../../WRF_Run/GFS_DATA/Real_Time/new_data/gfs.t18z.pgrb2.0p50.f* .
+  881  ls
+  882  cd ..
+  883  cd coupled_model/
+  884  ./wrf_preprocess.sh 
+  885  cd test_cases/
+  886  ll
+  887  cd Fiona3_newgrid_ocean
+  888  emacs config.h
+  889  cd ..
+  890  ll
+  891  cd INVEST99L_2818Z_1
+  892  ls
+  893  rm -r gfs.t1*
+  894  ls
+  895  rm -r GRIBFILE.A*
+  896  ls
+  897  rm -r *
+  898  cd ..
+  899  cd coupled_model/
+  900  ./wrf_preprocess.sh 
+  901  ./create_ocean_domain_grid.sh 
+  902  ./add_bathymetry.sh 
+  903  ./ocean_preprocess_local.sh 
+  904  ./finalize_namelists.sh 
+  905  cd ..
+  906  ll
+  907  cd INVEST99L_2818Z_1
+  908  sbatch submit_coupled_simulation
+  909  squeue 
+  910  ll
+  911  squeue 
+  912  scancel 10731 10733
+  913  scancel 10723
+  914  squeue 
+  915  cd ..
+  916  ll
+  917  cd INVEST99L_2818Z
+  918  ncview wrfout_d01_2016-08-28_12\:00\:00 
+  919  ll
+  920  emacs rsl.error.0000 
+  921  ll
+  922  cd ..
+  923  ll
+  924  cd INVEST99L_2818Z_1
+  925  ls
+  926  ll
+  927  ncview wrfout_d01_2016-08-28_18\:00\:00 
+  928  ll
+  929  ncview wrfout_d01_2016-08-28_18\:00\:00 
+  930  cd ..
+  931  ll
+  932  cd INVEST99L_2818Z
+  933  ncview wrfout_d01_2016-08-28_12\:00\:00 
+  934  cd ..
+  935  ll
+  936  cd INVEST99L_2818Z_1
+  937  ncview wrfout_d01_2016-08-28_18\:00\:00 
+  938  cd ..
+  939  ll
+  940  cd INVEST99L_2818Z
+  941  pwdf
+  942  pwd
+  943  ncview wrfout_d01_2016-08-28_12\:00\:00 
+  944  ll
+  945  pwed
+  946  pwd
+  947  ll
+  948  cd postprd/
+  949  ls
+  950  ll
+  951  ssh -Y frisco 
+  952  ssh -Y frisco 
+  953  squeue 
+  954  cd /mnt/data/sci3/mjisan/coupled/
+  955  ll
+  956  cd INVEST99L_2818Z_1
+  957  ll
+  958  emacs rsl.error.0000 
+  959  ncview wrfout_d01_2016-08-28_18\:00\:00 
+  960  pwd
+  961  cd ../../WRF_Run/GFS_DATA/Real_Time/new_data/
+  962  ll
+  963  emacs gfsdata_download.sh
+  964  ./gfsdata_download.sh
+  965  emacs gfsdata_download.sh
+  966  ./gfsdata_download.sh
+  967  sbatch gfsdata_download.sh
+  968  squeue 
+  969  ll
+  970  cd ..
+  971  cd ../../../
+  972  cd coupled/
+  973  cd coupled_model/test_cases/
+  974  ll
+  975  cd Fiona3_newgrid_ocean/
+  976  emacs config.h
+  977  cd ../../../
+  978  cd gfs_data/
+  979  mv 2016082818/ 2016082912
+  980  cd 2016082912/
+  981  ls
+  982  rm -r *
+  983  ln -sf ../../../WRF_Run/GFS_DATA/Real_Time/new_data/gfs.t06z.pgrb2.0p50.f* .
+  984  cd ..
+  985  cd coupled_model/
+  986  ./wrf_preprocess.sh 
+  987  ./create_ocean_domain_grid.sh 
+  988  ./add_bathymetry.sh 
+  989  ./ocean_preprocess_local.sh 
+  990  ./finalize_namelists.sh 
+  991  cd ..
+  992  ll
+  993  cd INVEST99L_2912Z
+  994  ll
+  995  sbatch submit_coupled_simulation
+  996  squeue 
+  997  cd /home/mjisan/Downloads/UPPV2.0/scripts/
+  998  emacs run_unipost
+  999  emacs ../parm/wrf_cntrl.parm 
+ 1000  ./run_unipost
+ 1001  cd /mnt/data/sci3/mjisan/coupled/
+ 1002  mkdir GFDL_Tracker
+ 1003  cd GFDL_Tracker/
+ 1004  cp -a ../../WRF_Run/SC_Daily_Weather/main.sh .
+ 1005  ls
+ 1006  emacs main.sh 
+ 1007  emacs tracker.sh
+ 1008  emacs main.sh 
+ 1009  emacs tracker.sh 
+ 1010  emacs main.sh 
+ 1011  emacs tracker.sh 
+ 1012  history >> his_tracker
